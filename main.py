@@ -21,6 +21,33 @@ for i in range(16):
 
 plt.show()
 
+# reducing the amount of images to put into the training model, this saves time, but accuracy may be lower
+training_images = training_images[:20000] # using up to 20000
+training_labels = training_labels[:20000] # using up to 20000
+testing_images = testing_images[:4000] # reducing the testing as well
+testing_labels = testing_labels [:4000]
+
+# starting to build the neural network
+model = models.Sequential()
+# adding input layer as converlutional layer, 32 neurons and 3,3 as conver layer
+# input shape is 32 X 32 pixels and 3 color grades
+model.add(layers.Conv2D(32, (3,3), activation="relu", input_shape=(32,32,3))) # rectofying liner unit, TODO check it out
+model.add(layers.MaxPooling2D((2,2))) # TODO check out what this does
+model.add(layers.Conv2D(64, (3,3), activation="relu"))
+model.add(layers.MaxPooling2D((2,2)))
+model.add(layers.Conv2D(64, (3,3), activation="relu"))
+# now will flatten the inputs
+model.add(layers.Flatten())
+model.add(layers.Dense(64, activation="relu")) # TODO check out
+model.add(layers.Dense(10, activation="softmax")) # this is the last layer which scales to a probability percentage
+
+# compiling the model #TODO check out what the parameters do
+model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"])
+# fitting model to the training data.
+model.fit(training_images, training_labels, epochs=10, validation_data=(testing_images, testing_labels)) #epochs is how many times the model is going to see the data again
+
+
+
 
 
 

@@ -8,6 +8,7 @@ numpy = "*"
 tensorflow = "*"
 opencv-python = "*"
 matplotlib = "*"
+kiwisolver = "*"
 
 [dev-packages]
 
