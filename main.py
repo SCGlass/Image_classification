@@ -46,7 +46,13 @@ model.compile(optimizer="adam", loss="sparse_categorical_crossentropy", metrics=
 # fitting model to the training data.
 model.fit(training_images, training_labels, epochs=10, validation_data=(testing_images, testing_labels)) #epochs is how many times the model is going to see the data again
 
+# evaluating the model with testing
+loss, accuracy = model.evaluate(testing_images, testing_labels)
+print(f"Loss: {loss}")
+print(f"Accuracy: {accuracy}")
 
+# saving the model so it is trained only once
+model.save("image_classifier.model")
 
 
 
